@@ -1,9 +1,14 @@
-// config.js — Configuración central de la app
-// Cambia VITE_API_URL en .env para producción
+// ═══════════════════════════════════════════════════════════
+// config.js — Configuración central de Lookiss
+//
+// IMPORTANTE: Reemplaza la URL de abajo con la URL real
+// que Railway te generó en:
+// Settings → Networking → Public Domain
+// ═══════════════════════════════════════════════════════════
 
-export const API_BASE = 'https://tu-backend.up.railway.app';
-//                       ↑ pega aquí tu URL real de Railway
+export const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:3001';
 
 export const API_URL = `${API_BASE}/api`;
 
+// Construye la URL completa de una imagen
 export const mediaUrl = (path) => (path ? `${API_BASE}${path}` : '');

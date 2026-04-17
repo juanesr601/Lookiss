@@ -14,18 +14,30 @@ const app  = express();
 const PORT = process.env.PORT || 3001;
 
 // ── CORS ──────────────────────────────────────────────────────────────────────
+const allowedOrigins = [
+  'http://localhost:5173',
+  'http://localhost:3000',
+  'http://127.0.0.1:5173',
+  process.env.FRONTEND_URL, // URL de Vercel — agrégala en Railway Variables
+].filter(Boolean);
+
 app.use(cors({
-  origin: ['http://localhost:5173', 'http://localhost:3000', 'http://127.0.0.1:5173'],
+  origin: (origin, callback) => {
+    // Permitir requests sin origin (Postman, mobile, etc)
+    if (!origin) return callback(null, true);
+    if (allowedOrigins.includes(origin)) return callback(null, true);
+    callback(new Error(`CORS bloqueado: ${origin}`));
+  },
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
 }));
 
-// ── Body parsers (ANTES de las rutas) ─────────────────────────────────────────
+// ── Body parsers ──────────────────────────────────────────────────────────────
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
-// ── Logger de peticiones (solo en desarrollo) ─────────────────────────────────
+// ── Logger ────────────────────────────────────────────────────────────────────
 app.use((req, res, next) => {
   if (req.method !== 'GET') {
     console.log(`[${req.method}] ${req.path}`, JSON.stringify(req.body).slice(0, 120));
@@ -43,15 +55,16 @@ app.use('/api/users',         usersRoutes);
 app.use('/api/notifications', notificationsRoutes);
 app.use('/api/upload',        uploadRoutes);
 
-app.get('/api/health', (_, res) => res.json({ status: 'ok', app: 'Lookiss API v5' }));
+app.get('/api/health', (_, res) => res.json({ status: 'ok', app: 'Lookiss API' }));
 
-// ── Error handler global ──────────────────────────────────────────────────────
+// ── Error handler ─────────────────────────────────────────────────────────────
 app.use((err, req, res, next) => {
-  console.error('❌ Error no capturado:', err.message);
+  console.error('❌ Error:', err.message);
   res.status(500).json({ error: 'Error interno del servidor' });
 });
 
-app.listen(PORT, () => {
-  console.log(`🌸 Lookiss API → http://localhost:${PORT}`);
+// ── Escuchar en 0.0.0.0 para que Railway pueda exponerlo ─────────────────────
+app.listen(PORT, '0.0.0.0', () => {
+  console.log(`🌸 Lookiss API → http://0.0.0.0:${PORT}`);
   console.log(`   Health:      http://localhost:${PORT}/api/health`);
 });
