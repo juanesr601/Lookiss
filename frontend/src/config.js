@@ -10,5 +10,5 @@ export const API_BASE = 'https://lookiss-production.up.railway.app';
 
 export const API_URL = `${API_BASE}/api`;
 
-// Construye la URL completa de una imagen
 export const mediaUrl = (path) => (path ? `${API_BASE}${path}` : '');
+
