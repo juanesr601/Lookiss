@@ -1,0 +1,140 @@
+/* ═══════════════════════════════════════════════════════════
+   profile.css — Página de perfil de usuario
+   ═══════════════════════════════════════════════════════════ */
+
+/* ── Banner ─────────────────────────────────────────────── */
+.profile-banner {
+  height: 110px;
+  background: linear-gradient(135deg, var(--pink), var(--purple));
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+}
+
+/* ── Cuerpo del perfil ──────────────────────────────────── */
+.profile-body {
+  padding: 0 20px 20px;
+  margin-top: -44px;
+}
+
+/* ── Fila avatar + botón ────────────────────────────────── */
+.profile-top-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 12px;
+}
+
+/* ── Avatar wrapper ─────────────────────────────────────── */
+.profile-avatar-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.profile-avatar-border {
+  border: 3px solid #fff;
+  border-radius: 50%;
+  display: inline-block;
+  line-height: 0;
+}
+
+.profile-avatar-cam-btn {
+  position: absolute;
+  bottom: 2px;
+  right: 2px;
+  background: var(--pink);
+  border: 2px solid #fff;
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  color: #fff;
+  font-size: 14px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.12s, transform 0.12s;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.25);
+}
+
+.profile-avatar-cam-btn:hover {
+  background: var(--pink-dark);
+  transform: scale(1.08);
+}
+
+/* ── Nombre y meta ──────────────────────────────────────── */
+.profile-name {
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 2px;
+  color: var(--text);
+}
+
+.profile-handle {
+  font-size: 13px;
+  color: var(--muted);
+  margin-bottom: 8px;
+}
+
+.profile-bio {
+  font-size: 14px;
+  line-height: 1.55;
+  margin-bottom: 14px;
+  color: var(--text);
+}
+
+/* ── Stats ──────────────────────────────────────────────── */
+.profile-stats {
+  display: flex;
+  gap: 24px;
+}
+
+.profile-stat strong {
+  font-family: var(--font-display);
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.profile-stat span {
+  font-size: 12px;
+  color: var(--muted);
+  margin-left: 4px;
+}
+
+/* ── Formulario de edición ──────────────────────────────── */
+.profile-edit-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 16px;
+  padding: 14px;
+  background: var(--bg);
+  border-radius: var(--radius-md);
+}
+
+.profile-edit-form label {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.profile-edit-save {
+  align-self: flex-start;
+  padding: 8px 22px;
+}
+
+/* ── Empty state ────────────────────────────────────────── */
+.profile-empty {
+  padding: 36px;
+  text-align: center;
+  color: var(--muted);
+}
+
+.profile-empty-icon {
+  font-size: 32px;
+  margin-bottom: 10px;
+}

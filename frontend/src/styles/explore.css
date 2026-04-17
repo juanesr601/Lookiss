@@ -1,0 +1,113 @@
+/* ═══════════════════════════════════════════════════════════
+   explore.css — Página de exploración y búsqueda
+   ═══════════════════════════════════════════════════════════ */
+
+/* ── Barra de búsqueda ──────────────────────────────────── */
+.explore-search-bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--bg);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-full);
+  padding: 9px 16px;
+  margin-bottom: 14px;
+  transition: border-color 0.15s;
+}
+
+.explore-search-bar:focus-within {
+  border-color: var(--pink);
+}
+
+.explore-search-icon {
+  color: var(--muted);
+  font-size: 18px;
+  flex-shrink: 0;
+}
+
+.explore-search-input {
+  border: none;
+  background: none;
+  outline: none;
+  flex: 1;
+  font-size: 14px;
+  font-family: var(--font-body);
+  color: var(--text);
+}
+
+.explore-search-input::placeholder {
+  color: var(--muted);
+}
+
+/* ── Tabs ───────────────────────────────────────────────── */
+.explore-tabs {
+  display: flex;
+  border-bottom: 1px solid var(--border);
+}
+
+.explore-tab {
+  flex: 1;
+  padding: 11px;
+  text-align: center;
+  font-size: 14px;
+  background: none;
+  border: none;
+  border-bottom: 2.5px solid transparent;
+  color: var(--muted);
+  font-weight: 400;
+  cursor: pointer;
+  transition: color 0.15s, border-color 0.15s;
+  font-family: var(--font-body);
+}
+
+.explore-tab.active {
+  color: var(--pink);
+  border-bottom-color: var(--pink);
+  font-weight: 600;
+}
+
+/* ── Lista de personas ──────────────────────────────────── */
+.explore-people-list {
+  padding: 10px 16px;
+}
+
+.explore-person-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 0;
+  border-bottom: 0.5px solid var(--border);
+}
+
+.explore-person-row:last-child {
+  border-bottom: none;
+}
+
+.explore-person-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.explore-person-name {
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--text);
+  display: block;
+  transition: color 0.12s;
+}
+
+.explore-person-name:hover {
+  color: var(--pink);
+}
+
+.explore-person-meta {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.explore-empty {
+  text-align: center;
+  color: var(--muted);
+  padding: 28px;
+  font-size: 14px;
+}

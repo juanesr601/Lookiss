@@ -1,0 +1,138 @@
+/* ═══════════════════════════════════════════════════════════
+   composer.css — Creador de publicaciones
+   ═══════════════════════════════════════════════════════════ */
+
+.composer-card {
+  background: var(--card);
+  border-radius: var(--radius-lg);
+  border: 0.5px solid var(--border);
+  margin-bottom: 16px;
+  padding: 16px;
+}
+
+/* ── Fila superior ──────────────────────────────────────── */
+.composer-top {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  margin-bottom: 12px;
+}
+
+.composer-textarea {
+  flex: 1;
+  border: 1.5px solid var(--border);
+  border-radius: 14px;
+  padding: 10px 14px;
+  font-size: 14px;
+  resize: none;
+  outline: none;
+  min-height: 52px;
+  font-family: var(--font-body);
+  background: var(--bg);
+  color: var(--text);
+  transition: border-color 0.15s;
+  line-height: 1.5;
+}
+
+.composer-textarea:focus {
+  border-color: var(--pink);
+}
+
+.composer-textarea::placeholder {
+  color: var(--muted);
+}
+
+/* ── Preview de imagen ──────────────────────────────────── */
+.composer-preview {
+  position: relative;
+  margin-bottom: 12px;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  border: 1px solid var(--border);
+}
+
+.composer-preview img {
+  width: 100%;
+  max-height: 300px;
+  object-fit: cover;
+}
+
+.composer-preview-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  gap: 8px;
+}
+
+.composer-remove-img {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: rgba(0, 0, 0, 0.6);
+  border: none;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  color: #fff;
+  font-size: 15px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.12s;
+}
+
+.composer-remove-img:hover {
+  background: rgba(0, 0, 0, 0.82);
+}
+
+/* ── Barra de acciones ──────────────────────────────────── */
+.composer-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.composer-tools {
+  display: flex;
+  gap: 2px;
+}
+
+.composer-tool-btn {
+  background: none;
+  border: none;
+  font-size: 20px;
+  padding: 6px 8px;
+  border-radius: var(--radius-sm);
+  color: var(--pink);
+  cursor: pointer;
+  transition: background 0.12s;
+  line-height: 1;
+}
+
+.composer-tool-btn:hover {
+  background: var(--pink-light);
+}
+
+.composer-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.composer-char-count {
+  font-size: 12px;
+  color: var(--muted);
+  transition: color 0.15s;
+}
+
+.composer-char-count.over {
+  color: #e53935;
+  font-weight: 600;
+}

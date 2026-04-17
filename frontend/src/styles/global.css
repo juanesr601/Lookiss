@@ -1,0 +1,206 @@
+/* ═══════════════════════════════════════════════════════════
+   global.css — Variables, reset y estilos base de Lookiss
+   ═══════════════════════════════════════════════════════════ */
+
+:root {
+  --pink:        #E91E8C;
+  --pink-dark:   #c2176f;
+  --pink-light:  #fce4f3;
+  --pink-mid:    #f48cc7;
+  --purple:      #9C27B0;
+  --dark:        #0f0f1a;
+  --dark2:       #1a1a2e;
+  --card:        #ffffff;
+  --border:      rgba(0, 0, 0, 0.08);
+  --text:        #0f0f1a;
+  --muted:       #888;
+  --bg:          #f7f0f7;
+  --sidebar-w:   240px;
+  --right-w:     280px;
+  --font-display: 'Sora', sans-serif;
+  --font-body:    'Inter', sans-serif;
+  --radius-sm:   8px;
+  --radius-md:   12px;
+  --radius-lg:   16px;
+  --radius-full: 9999px;
+  --shadow-sm:   0 1px 3px rgba(0,0,0,0.07);
+  --shadow-md:   0 4px 16px rgba(233,30,140,0.10);
+}
+
+/* ── Reset ──────────────────────────────────────────────── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  font-family: var(--font-body);
+  background: var(--bg);
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+button {
+  cursor: pointer;
+  font-family: var(--font-body);
+}
+
+input,
+textarea,
+select {
+  font-family: var(--font-body);
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+/* ── Scrollbar ──────────────────────────────────────────── */
+::-webkit-scrollbar        { width: 4px; }
+::-webkit-scrollbar-track  { background: transparent; }
+::-webkit-scrollbar-thumb  { background: rgba(233,30,140,0.25); border-radius: 4px; }
+
+/* ── Layout principal ───────────────────────────────────── */
+.app-layout {
+  display: flex;
+  min-height: 100vh;
+}
+
+.main-area {
+  margin-left: var(--sidebar-w);
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  padding: 24px 16px;
+  max-width: calc(100vw - var(--sidebar-w));
+}
+
+.feed-column {
+  width: 100%;
+  max-width: 600px;
+}
+
+.right-column {
+  width: var(--right-w);
+  flex-shrink: 0;
+}
+
+/* ── Card base ──────────────────────────────────────────── */
+.card {
+  background: var(--card);
+  border-radius: var(--radius-lg);
+  border: 0.5px solid var(--border);
+  margin-bottom: 16px;
+  overflow: hidden;
+}
+
+/* ── Avatar base ────────────────────────────────────────── */
+.avatar {
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-weight: 700;
+  font-family: var(--font-display);
+  flex-shrink: 0;
+  user-select: none;
+}
+
+/* ── Botones globales ───────────────────────────────────── */
+.btn-primary {
+  background: var(--pink);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius-full);
+  padding: 9px 22px;
+  font-size: 14px;
+  font-weight: 600;
+  transition: background 0.15s, transform 0.15s;
+}
+.btn-primary:hover            { background: var(--pink-dark); transform: translateY(-1px); }
+.btn-primary:disabled         { opacity: 0.45; cursor: not-allowed; transform: none; }
+
+.btn-outline {
+  background: transparent;
+  color: var(--pink);
+  border: 1.5px solid var(--pink);
+  border-radius: var(--radius-full);
+  padding: 7px 20px;
+  font-size: 14px;
+  font-weight: 600;
+  transition: background 0.15s;
+}
+.btn-outline:hover { background: var(--pink-light); }
+
+.btn-follow {
+  background: var(--pink-light);
+  color: var(--pink);
+  border: none;
+  border-radius: var(--radius-full);
+  padding: 6px 16px;
+  font-size: 13px;
+  font-weight: 600;
+  transition: background 0.15s, color 0.15s;
+  white-space: nowrap;
+}
+.btn-follow:hover,
+.btn-follow.following { background: var(--pink); color: #fff; }
+
+/* ── Input base ─────────────────────────────────────────── */
+.input-field {
+  width: 100%;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 11px 14px;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.15s;
+  background: #fff;
+  color: var(--text);
+}
+.input-field:focus { border-color: var(--pink); }
+
+/* ── Badge ──────────────────────────────────────────────── */
+.badge {
+  display: inline-block;
+  background: var(--pink-light);
+  color: var(--pink);
+  font-size: 10px;
+  font-weight: 700;
+  padding: 1px 7px;
+  border-radius: var(--radius-full);
+  margin-left: 4px;
+}
+
+/* ── Responsive ─────────────────────────────────────────── */
+@media (max-width: 900px) {
+  .right-column { display: none; }
+}
+
+@media (max-width: 640px) {
+  .sidebar             { width: 60px; }
+  .sidebar-logo h1,
+  .nav-item span,
+  .sidebar-user-card .user-info { display: none; }
+  .nav-item            { justify-content: center; padding: 12px; }
+  .sidebar-user-card   { justify-content: center; }
+  .main-area           { margin-left: 60px; max-width: calc(100vw - 60px); padding: 12px 8px; }
+}

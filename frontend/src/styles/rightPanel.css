@@ -1,0 +1,96 @@
+/* ═══════════════════════════════════════════════════════════
+   rightPanel.css — Panel derecho (sugerencias + tendencias)
+   ═══════════════════════════════════════════════════════════ */
+
+.right-column {
+  width: var(--right-w);
+  flex-shrink: 0;
+}
+
+/* ── Sección de sugerencias ─────────────────────────────── */
+.right-section-title {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 12px;
+}
+
+.suggestion-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.suggestion-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.suggestion-name {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text);
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: color 0.12s;
+}
+
+.suggestion-name:hover {
+  color: var(--pink);
+}
+
+.suggestion-handle {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+/* ── Tendencias ─────────────────────────────────────────── */
+.trends-card {
+  padding: 14px 16px;
+}
+
+.trend-item {
+  padding: 8px 0;
+  border-bottom: 0.5px solid var(--border);
+  cursor: pointer;
+}
+
+.trend-item:last-child {
+  border-bottom: none;
+}
+
+.trend-category {
+  font-size: 11px;
+  color: var(--muted);
+  margin-bottom: 1px;
+}
+
+.trend-tag {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text);
+  transition: color 0.12s;
+}
+
+.trend-item:hover .trend-tag {
+  color: var(--pink);
+}
+
+.trend-count {
+  font-size: 11px;
+  color: var(--muted);
+  margin-top: 1px;
+}
+
+/* ── Footer ─────────────────────────────────────────────── */
+.right-footer {
+  font-size: 11px;
+  color: var(--muted);
+  margin-top: 14px;
+  padding: 0 4px;
+}

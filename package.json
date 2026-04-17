@@ -1,0 +1,10 @@
+{
+  "name": "lookiss",
+  "version": "1.0.0",
+  "description": "Lookiss — Red Social",
+  "scripts": {
+    "install:all": "cd backend && npm install && cd ../frontend && npm install",
+    "dev:backend": "cd backend && npm run dev",
+    "dev:frontend": "cd frontend && npm run dev"
+  }
+}
