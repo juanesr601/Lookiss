@@ -9,6 +9,8 @@ import db from '../db/database.js';
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const router = Router();
 
+// ── Configuración Multer ──────────────────────────────────────────────────────
+
 const storage = (folder) =>
   multer.diskStorage({
     destination: join(__dirname, '..', 'uploads', folder),
@@ -28,12 +30,14 @@ const imageFilter = (req, file, cb) => {
 const uploadPost   = multer({ storage: storage('posts'),   fileFilter: imageFilter, limits: { fileSize: 8 * 1024 * 1024 } });
 const uploadAvatar = multer({ storage: storage('avatars'), fileFilter: imageFilter, limits: { fileSize: 3 * 1024 * 1024 } });
 
+// ── POST /api/upload/post-image ───────────────────────────────────────────────
 router.post('/post-image', authMiddleware, uploadPost.single('image'), (req, res) => {
   if (!req.file) return res.status(400).json({ error: 'No se recibió imagen' });
   const url = `/uploads/posts/${req.file.filename}`;
   res.json({ url });
 });
 
+// ── POST /api/upload/avatar ───────────────────────────────────────────────────
 router.post('/avatar', authMiddleware, uploadAvatar.single('avatar'), async (req, res) => {
   if (!req.file) return res.status(400).json({ error: 'No se recibió imagen' });
   const url = `/uploads/avatars/${req.file.filename}`;
@@ -41,6 +45,7 @@ router.post('/avatar', authMiddleware, uploadAvatar.single('avatar'), async (req
   res.json({ url });
 });
 
+// ── Error handler para multer ─────────────────────────────────────────────────
 router.use((err, req, res, next) => {
   if (err?.code === 'LIMIT_FILE_SIZE')
     return res.status(413).json({ error: 'La imagen es demasiado grande' });

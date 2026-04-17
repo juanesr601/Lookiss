@@ -23,6 +23,7 @@ const safeUser = async (user, viewerId) => {
   };
 };
 
+// GET /api/users/suggestions/all  — must be before /:handle
 router.get('/suggestions/all', authMiddleware, async (req, res) => {
   try {
     const users = await db.all(`
@@ -36,6 +37,7 @@ router.get('/suggestions/all', authMiddleware, async (req, res) => {
   } catch (err) { res.status(500).json({ error: err.message }); }
 });
 
+// GET /api/users/search/:q  — must be before /:handle
 router.get('/search/:q', authMiddleware, async (req, res) => {
   try {
     const q = `%${req.params.q}%`;
@@ -45,18 +47,20 @@ router.get('/search/:q', authMiddleware, async (req, res) => {
   } catch (err) { res.status(500).json({ error: err.message }); }
 });
 
+// GET /api/users/me
 router.get('/me', authMiddleware, async (req, res) => {
   const user = await db.get('SELECT * FROM users WHERE id = ?', [req.user.id]);
   res.json(await safeUser(user, req.user.id));
 });
 
+// GET /api/users/:handle
 router.get('/:handle', authMiddleware, async (req, res) => {
   const user = await db.get('SELECT * FROM users WHERE handle = ?', [req.params.handle]);
   if (!user) return res.status(404).json({ error: 'Usuario no encontrado' });
   res.json(await safeUser(user, req.user.id));
 });
 
-
+// PUT /api/users/me
 router.put('/me', authMiddleware, async (req, res) => {
   try {
     const { name, bio, location } = req.body;
@@ -67,6 +71,7 @@ router.put('/me', authMiddleware, async (req, res) => {
   } catch (err) { res.status(500).json({ error: err.message }); }
 });
 
+// POST /api/users/:id/follow
 router.post('/:id/follow', authMiddleware, async (req, res) => {
   try {
     if (req.params.id === req.user.id)

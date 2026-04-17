@@ -5,6 +5,7 @@ import { authMiddleware } from './auth.middleware.js';
 
 const router = Router();
 
+// ── Helpers ───────────────────────────────────────────────────────────────────
 
 const enrichPost = async (post, userId) => {
   const [likesRow, likedRow, savedRow, commentsRow, author] = await Promise.all([
@@ -24,6 +25,7 @@ const enrichPost = async (post, userId) => {
   };
 };
 
+// ── GET /api/posts/saved/mine  (antes de /:id) ────────────────────────────────
 router.get('/saved/mine', authMiddleware, async (req, res) => {
   try {
     const posts = await db.all(`
@@ -35,19 +37,20 @@ router.get('/saved/mine', authMiddleware, async (req, res) => {
   } catch (err) { res.status(500).json({ error: err.message }); }
 });
 
+// ── GET /api/posts/feed ───────────────────────────────────────────────────────
 router.get('/feed', authMiddleware, async (req, res) => {
   try {
     const posts = await db.all(`
       SELECT p.* FROM posts p
       WHERE p.user_id = ?
-        OR p.user_id IN (SELECT following_id FROM follows WHERE follower_id = ?)
+         OR p.user_id IN (SELECT following_id FROM follows WHERE follower_id = ?)
       ORDER BY p.created_at DESC LIMIT 50
     `, [req.user.id, req.user.id]);
     res.json(await Promise.all(posts.map(p => enrichPost(p, req.user.id))));
   } catch (err) { res.status(500).json({ error: err.message }); }
 });
 
-
+// ── GET /api/posts/explore ────────────────────────────────────────────────────
 router.get('/explore', authMiddleware, async (req, res) => {
   try {
     const posts = await db.all('SELECT * FROM posts ORDER BY created_at DESC LIMIT 100', []);
@@ -55,6 +58,7 @@ router.get('/explore', authMiddleware, async (req, res) => {
   } catch (err) { res.status(500).json({ error: err.message }); }
 });
 
+// ── GET /api/posts/user/:handle ───────────────────────────────────────────────
 router.get('/user/:handle', authMiddleware, async (req, res) => {
   try {
     const user = await db.get('SELECT id FROM users WHERE handle = ?', [req.params.handle]);
@@ -64,11 +68,13 @@ router.get('/user/:handle', authMiddleware, async (req, res) => {
   } catch (err) { res.status(500).json({ error: err.message }); }
 });
 
+// ── POST /api/posts ───────────────────────────────────────────────────────────
 router.post('/', authMiddleware, async (req, res) => {
   try {
     const text  = (req.body?.text  ?? '').toString().trim();
     const image = (req.body?.image ?? '').toString().trim();
 
+    // Necesita al menos texto O imagen
     if (!text && !image) {
       return res.status(400).json({ error: 'Debes escribir algo o subir una imagen' });
     }
@@ -83,6 +89,7 @@ router.post('/', authMiddleware, async (req, res) => {
   } catch (err) { res.status(500).json({ error: err.message }); }
 });
 
+// ── DELETE /api/posts/:id ─────────────────────────────────────────────────────
 router.delete('/:id', authMiddleware, async (req, res) => {
   try {
     const post = await db.get('SELECT * FROM posts WHERE id = ?', [req.params.id]);
@@ -93,6 +100,7 @@ router.delete('/:id', authMiddleware, async (req, res) => {
   } catch (err) { res.status(500).json({ error: err.message }); }
 });
 
+// ── POST /api/posts/:id/like ──────────────────────────────────────────────────
 router.post('/:id/like', authMiddleware, async (req, res) => {
   try {
     const existing = await db.get(
@@ -116,6 +124,7 @@ router.post('/:id/like', authMiddleware, async (req, res) => {
   } catch (err) { res.status(500).json({ error: err.message }); }
 });
 
+// ── POST /api/posts/:id/save ──────────────────────────────────────────────────
 router.post('/:id/save', authMiddleware, async (req, res) => {
   try {
     const existing = await db.get(
@@ -131,6 +140,7 @@ router.post('/:id/save', authMiddleware, async (req, res) => {
   } catch (err) { res.status(500).json({ error: err.message }); }
 });
 
+// ── GET /api/posts/:id/comments ───────────────────────────────────────────────
 router.get('/:id/comments', authMiddleware, async (req, res) => {
   try {
     const comments = await db.all(`
@@ -142,6 +152,7 @@ router.get('/:id/comments', authMiddleware, async (req, res) => {
   } catch (err) { res.status(500).json({ error: err.message }); }
 });
 
+// ── POST /api/posts/:id/comments ──────────────────────────────────────────────
 router.post('/:id/comments', authMiddleware, async (req, res) => {
   try {
     const text = (req.body?.text ?? '').toString().trim();
