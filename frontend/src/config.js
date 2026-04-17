@@ -6,7 +6,7 @@
 // Settings → Networking → Public Domain
 // ═══════════════════════════════════════════════════════════
 
-export const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:3001';
+export const API_BASE = 'https://lookiss-production.up.railway.app';
 
 export const API_URL = `${API_BASE}/api`;
 
