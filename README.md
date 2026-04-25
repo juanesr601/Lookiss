@@ -60,10 +60,3 @@ lookiss/
 
 ---
 
-## 🔧 Variable de entorno (opcional)
-
-Crear archivo `.env` en `/backend`:
-```
-PORT=3001
-JWT_SECRET=tu_clave_secreta_aqui
-```
